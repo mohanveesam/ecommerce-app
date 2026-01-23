@@ -4,7 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth.routes');
-
+const categoryRoutes = require('./routes/category.routes')
 const app = express();
 
 // Allow Angular frontend on 4206
@@ -17,6 +17,7 @@ app.use(express.json());
 
 // Auth routes
 app.use('/api/auth', authRoutes);
+app.use('/api/category', categoryRoutes)
 
 // Test route
 app.get('/', (req, res) => {
