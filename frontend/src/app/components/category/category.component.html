@@ -1,1 +1,47 @@
-<p>category works!</p>
+<h2>Category List</h2>
+
+<div class="row">
+  <!-- LEFT : LIST -->
+  <div class="col-6">
+    <ul class="category-list">
+      <li *ngFor="let cat of categories">
+        {{ cat.category_name }}
+        <button
+          type="button"
+          class="me-2 px-1 pt-2 btn btn-outline-danger"
+          matTooltip="Delete"
+          (click)="deleteCategory(cat.id)"
+        >
+          <mat-icon class="pt-1">delete</mat-icon>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- RIGHT : FORM -->
+  <div class="col-6">
+    <form [formGroup]="categoryForm" (ngSubmit)="submit()">
+      <div>
+      <mat-form-field
+        appeacloseDialogrance="outline"
+        floatLabel="always"
+      >
+        <mat-label>Enter category name</mat-label>
+        <input matInput formControlName="category_name" type="text" />
+      </mat-form-field>
+      </div>
+      <div
+        class="error"
+        *ngIf="f['category_name'].touched && f['category_name'].invalid"
+      >
+        Category name is required
+      </div>
+      <div class="justify-content-end">
+      <button class="btn btn-primary" type="submit" [disabled]="isSubmitting">
+        <mat-icon class="pt-1">done_all</mat-icon>
+        {{ isSubmitting ? "Saving..." : "Save" }}
+      </button>
+      </div>
+    </form>
+  </div>
+</div>

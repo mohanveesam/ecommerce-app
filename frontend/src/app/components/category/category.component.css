@@ -1,0 +1,23 @@
+/* LEFT LIST COLUMN SCROLL */
+.col-6:first-child {
+  height: 84vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* RIGHT FORM COLUMN (NO SCROLL, CENTERED) */
+.col-6:last-child {
+  height: 84vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* YOUR EXISTING CSS (UNCHANGED) */
+.category-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
