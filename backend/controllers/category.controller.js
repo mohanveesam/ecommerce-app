@@ -3,9 +3,9 @@ const db = require('../config/mysql');
 /* GET ALL CATEGORIES */
 exports.getCategories = async (req, res) => {
   try {
-    const sql = 'SELECT category_id, category_name FROM categories';
+    const sql = 'SELECT * FROM categories';
 
-    const [rows] = await db.promise().query(sql);
+    const [rows] = await db.query(sql);
 
     return res.status(200).json({
       success: true,
@@ -33,7 +33,7 @@ exports.addCategory = async (req, res) => {
     }
 
     const sql = 'INSERT INTO categories (category_name) VALUES (?)';
-    const [result] = await db.promise().query(sql, [category_name]);
+    const [result] = await db.query(sql, [category_name]);
 
     return res.status(201).json({
       success: true,
@@ -49,51 +49,13 @@ exports.addCategory = async (req, res) => {
   }
 };
 
-/* UPDATE CATEGORY */
-exports.updateCategory = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { category_name } = req.body;
-
-    if (!category_name) {
-      return res.status(400).json({
-        success: false,
-        message: 'Category name is required'
-      });
-    }
-
-    const sql =
-      'UPDATE categories SET category_name = ? WHERE category_id = ?';
-
-    const [result] = await db.promise().query(sql, [category_name, id]);
-
-    if (result.affectedRows === 0) {
-      return res.status(404).json({
-        success: false,
-        message: 'Category not found'
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: 'Category updated successfully'
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: 'Failed to update category',
-      error: error.message
-    });
-  }
-};
-
 /* DELETE CATEGORY */
 exports.deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const sql = 'DELETE FROM categories WHERE category_id = ?';
-    const [result] = await db.promise().query(sql, [id]);
+    const sql = 'DELETE FROM categories WHERE id = ?';
+   const [result] = await db.query(sql, [id]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({
